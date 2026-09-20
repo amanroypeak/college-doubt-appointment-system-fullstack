@@ -33,7 +33,7 @@ export default function Footer() {
                             {/* Admin / Professor Login */}
 
                             <a
-                                href="http://localhost:5174"
+                                href="https://college-doubt-appointment-system-fu-chi.vercel.app/"
                                 className="bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-700 transition"
                             >
                                 Admin / Professor Login
