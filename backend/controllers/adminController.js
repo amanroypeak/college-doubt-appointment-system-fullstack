@@ -221,4 +221,28 @@ const adminDashboard = async (req, res) => {
 
 }
 
-export {addProfessor,loginAdmin,allProfessors,appointmentsAdmin, cancelAppointmentAdmin,adminDashboard}
+const deleteProfessor = async (req, res) => {
+    try {
+
+        const { id } = req.body
+
+        await professorModel.findByIdAndDelete(id)
+
+        res.json({
+            success: true,
+            message: "Professor deleted successfully"
+        })
+
+    } catch (error) {
+
+        console.log(error)
+
+        res.json({
+            success: false,
+            message: error.message
+        })
+
+    }
+}
+
+export {addProfessor,loginAdmin,allProfessors,appointmentsAdmin, cancelAppointmentAdmin,adminDashboard, deleteProfessor}
