@@ -16,6 +16,7 @@ function AddProfessors() {
 
     // Loading state
     const [loading, setLoading] = useState(false)
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
 
     const onSubmitHandler = async (event) => {
 
@@ -35,7 +36,7 @@ function AddProfessors() {
             formData.append('speciality', speciality)
 
             const { data } = await axios.post(
-                'http://localhost:4000/api/admin/add-professor',
+                 backendUrl + '/api/admin/add-professor',
                 formData,
                 {
                     headers: {
