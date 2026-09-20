@@ -3,7 +3,13 @@ import { AdminContext } from '../../context/AdminContext'
 
 function ProfessorList() {
 
-    const { professors, aToken, getAllProfessors,changeAvailability } = useContext(AdminContext)
+    const {
+        professors,
+        aToken,
+        getAllProfessors,
+        changeAvailability,
+        deleteProfessor
+    } = useContext(AdminContext)
 
     useEffect(() => {
 
@@ -28,14 +34,29 @@ function ProfessorList() {
 
                         <div
                             key={index}
-                            className='border rounded-xl overflow-hidden bg-white shadow-md hover:translate-y-[-5px] transition-all duration-300'
+                            className='relative border rounded-xl overflow-hidden bg-white shadow-md hover:translate-y-[-5px] transition-all duration-300'
                         >
+
+                            {/* Delete Button */}
+
+                            <button
+                                onClick={() => deleteProfessor(item._id)}
+                                className='absolute top-2 right-2 z-10 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-xl font-bold hover:bg-red-600 transition'
+                            >
+                                ×
+                            </button>
+
+
+                            {/* Professor Image */}
 
                             <img
                                 className='w-full h-56 object-cover'
                                 src={item.image}
                                 alt=""
                             />
+
+
+                            {/* Professor Details */}
 
                             <div className='p-4'>
 
@@ -47,20 +68,28 @@ function ProfessorList() {
                                     {item.speciality}
                                 </p>
 
-                                {/* available section */}
+
+                                {/* Availability */}
 
                                 <div className='flex items-center gap-2 mt-3'>
 
-                                    <input onChange={() => changeAvailability(item._id)}
+                                    <input
+                                        onChange={() => changeAvailability(item._id)}
                                         type="checkbox"
                                         checked={item.available}
-                                        
                                     />
 
-                                    <p className={`text-sm font-medium ${item.available ? 'text-green-600' : 'text-red-500'}`}>
-
-                                        {item.available ? 'Available' : 'Unavailable'}
-
+                                    <p
+                                        className={`text-sm font-medium ${
+                                            item.available
+                                                ? 'text-green-600'
+                                                : 'text-red-500'
+                                        }`}
+                                    >
+                                        {item.available
+                                            ? 'Available'
+                                            : 'Unavailable'
+                                        }
                                     </p>
 
                                 </div>

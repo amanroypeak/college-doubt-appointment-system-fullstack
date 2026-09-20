@@ -129,9 +129,39 @@ const getDashData = async () => {
 }
 
 
+const deleteProfessor = async (id) => {
+
+    try {
+
+        const { data } = await axios.delete(
+            backendUrl + '/api/admin/delete-professor',
+            {
+                headers: {
+                    atoken: aToken
+                },
+                data: {
+                    id: id
+                }
+            }
+        )
+
+        if (data.success) {
+            toast.success(data.message)
+            getAllProfessors()
+        } else {
+            toast.error(data.message)
+        }
+
+    } catch (error) {
+        toast.error(error.message)
+    }
+
+}
+
+
     const value = {
         aToken,setAToken,backendUrl,professors,getAllProfessors,changeAvailability,appointments,setAppointments,getAllAppointments,cancelAppointment,dashData, getDashData
-    }
+    , deleteProfessor}
 
     return (
         <AdminContext.Provider value = {value}>

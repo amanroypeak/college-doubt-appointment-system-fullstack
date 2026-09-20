@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
@@ -13,11 +14,17 @@ function AddProfessors() {
     const [password, setPassword] = useState('')
     const [speciality, setSpeciality] = useState('')
 
+    // Loading state
+    const [loading, setLoading] = useState(false)
+
     const onSubmitHandler = async (event) => {
 
         event.preventDefault()
 
         try {
+
+            // Start uploading
+            setLoading(true)
 
             const formData = new FormData()
 
@@ -56,6 +63,11 @@ function AddProfessors() {
 
             console.log(error)
             toast.error(error.message)
+
+        } finally {
+
+            // Stop uploading
+            setLoading(false)
 
         }
 
@@ -161,9 +173,10 @@ function AddProfessors() {
 
                     <button
                         type='submit'
-                        className='bg-blue-600 text-white py-3 px-10 rounded mt-4 hover:bg-blue-700 transition-all'
+                        disabled={loading}
+                        className='bg-blue-600 text-white py-3 px-10 rounded mt-4 hover:bg-blue-700 transition-all disabled:bg-gray-400 disabled:cursor-not-allowed'
                     >
-                        Upload Professor
+                        {loading ? 'Uploading...' : 'Upload Professor'}
                     </button>
 
                 </div>
@@ -176,3 +189,5 @@ function AddProfessors() {
 }
 
 export default AddProfessors
+
+
