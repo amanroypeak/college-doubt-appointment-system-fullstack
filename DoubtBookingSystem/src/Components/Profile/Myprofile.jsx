@@ -14,6 +14,7 @@ function MyProfile() {
   } = useTeacher();
 
   const [isEdit, setIsEdit] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleChange = (e) => {
 
@@ -37,6 +38,8 @@ function MyProfile() {
   };
 
   const updateUserProfileData = async () => {
+
+    setIsSaving(true);
 
     try {
 
@@ -84,6 +87,10 @@ function MyProfile() {
 
       console.log(error);
       toast.error(error.message);
+
+    } finally {
+
+      setIsSaving(false);
 
     }
   };
@@ -180,19 +187,28 @@ function MyProfile() {
         <div className="mt-8 flex gap-4 justify-end">
 
           {!isEdit ? (
+
             <button
               onClick={() => setIsEdit(true)}
               className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700"
             >
               Edit
             </button>
+
           ) : (
+
             <button
               onClick={updateUserProfileData}
-              className="px-6 py-2 bg-green-600 text-white rounded-full hover:bg-green-700"
+              disabled={isSaving}
+              className={`px-6 py-2 text-white rounded-full ${
+                isSaving
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700"
+              }`}
             >
-              Save
+              {isSaving ? "Saving..." : "Save"}
             </button>
+
           )}
 
         </div>
