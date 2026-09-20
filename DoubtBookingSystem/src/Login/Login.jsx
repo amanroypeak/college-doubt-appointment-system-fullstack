@@ -67,17 +67,30 @@ function Login() {
 
     useEffect(() => {
 
-        if (token ) {
+        if (token) {
             navigate('/')
         }
 
     }, [token])
 
     return (
-        <>
+
+        <div className='relative min-h-[80vh] flex items-center'>
+
+            {/* Back Button */}
+
+            <button
+                onClick={() => navigate(-1)}
+                className='absolute top-5 left-5 flex items-center gap-2 text-slate-700 hover:text-cyan-700 font-medium transition'
+            >
+                <span className='text-xl'>←</span>
+                Back
+            </button>
+
+
             <form
                 onSubmit={onSubmitHandler}
-                className='min-h-[80vh] flex items-center'
+                className='w-full flex items-center'
             >
 
                 <div className='flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-zinc-600 text-sm shadow-lg'>
@@ -147,6 +160,7 @@ function Login() {
                             ? (
                                 <p>
                                     Already have an account?
+
                                     <span
                                         onClick={() => setState("Login")}
                                         className='text-cyan-700 underline cursor-pointer'
@@ -158,6 +172,7 @@ function Login() {
                             : (
                                 <p>
                                     Create a new account?
+
                                     <span
                                         onClick={() => setState("Signup")}
                                         className='text-cyan-700 underline cursor-pointer'
@@ -171,7 +186,8 @@ function Login() {
                 </div>
 
             </form>
-        </>
+
+        </div>
     )
 }
 
