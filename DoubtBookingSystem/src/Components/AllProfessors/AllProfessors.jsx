@@ -6,7 +6,7 @@ function AllProfessors() {
 
   const [disTeacher, setDisTeacher] = useState([])
 
-  const { professors } = useTeacher()
+  const { professors, loading } = useTeacher()
 
   const { category } = useParams()
 
@@ -31,12 +31,21 @@ function AllProfessors() {
     applyFilter()
   }, [professors, category])
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[60vh]">
+        <p className="text-xl font-semibold text-gray-600">
+          Loading professors...
+        </p>
+      </div>
+    )
+  }
+
   return (
 
     <div className="p-10">
 
       {/* Heading */}
-
       <h1 className="text-3xl font-bold mb-6">
 
         {category ? `${category} Professors` : "All Professors"}
@@ -44,7 +53,6 @@ function AllProfessors() {
       </h1>
 
       {/* Cards Grid */}
-
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
         {disTeacher.map((item, index) => (

@@ -9,6 +9,7 @@ export const TeacherContextProvider = ({ children }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL
 
   const [professors, setProfessors] = useState([])
+  const [loading, setLoading] = useState(true);
 
   const [token, setToken] = useState(
     localStorage.getItem('token')
@@ -17,32 +18,34 @@ export const TeacherContextProvider = ({ children }) => {
   )
   const [userData,setUserData] = useState(false)
 
-  const getProfessorsData = async () => {
+ const getProfessorsData = async () => {
 
-    try {
+  try {
 
-      const { data } = await axios.get(
-        backendUrl + '/api/professor/list'
-      )
+    const { data } = await axios.get(
+      backendUrl + '/api/professor/list'
+    )
 
-      if (data.success) {
+    if (data.success) {
 
-        setProfessors(data.professors)
+      setProfessors(data.professors)
 
-      } else {
+    } else {
 
-        toast.error(data.message)
-
-      }
-
-    } catch (error) {
-
-      console.log(error)
-      toast.error(error.message)
+      toast.error(data.message)
 
     }
-  }
 
+  } catch (error) {
+
+    console.log(error)
+    toast.error(error.message)
+
+  } finally {
+
+    setLoading(false)
+  }
+}
   
 
   const loadUserProfileData = async () => {
@@ -70,7 +73,7 @@ export const TeacherContextProvider = ({ children }) => {
     token,
     setToken,
     getProfessorsData,
-    userData ,setUserData,loadUserProfileData
+    userData ,setUserData,loadUserProfileData, loading
   }
 
   useEffect(() => {
